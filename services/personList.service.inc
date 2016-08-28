@@ -1,22 +1,20 @@
-<%
 class PersonListService
 
     public meta
     public data()
 
-    public default function PersonListService(input)
-        metaData = ""
+    public default function PersonListService(parameter)
         
         set p = new Person
-        p.setName("Lersch")
-        p.setVorname("Holger")
+        p.setSurname("Lersch")
+        p.setForename("Holger")
         
         redim preserve data(0)
         set me.data(0) = p
         
         set p = new Person
-        p.setName("Schmidt")
-        p.setVorname("Erik")
+        p.setSurname("Schmidt")
+        p.setForename("Erik")
         
         redim preserve data(1)
         set me.data(1) = p
@@ -25,4 +23,3 @@ class PersonListService
     end function
 
 end class
-%>

@@ -16,11 +16,11 @@ else
         file = file & "    private " & propertyName & vbcrlf
         
         file = file & "    public function get" & ucaseFirst(propertyName) & vbcrlf
-        file = file & "        return " & propertyName & vbcrlf
-        file = file & "    end function" & vbcrlf & vbcrlf
+        file = file & "        get" & ucaseFirst(propertyName) & "=" & propertyName & vbcrlf
+        file = file & "    end function" & vbcrlf
         
         file = file & "    public function set" & ucaseFirst(propertyName) & "(in" & ucaseFirst(propertyName) & ")" & vbcrlf
-        file = file & "         " & propertyName & " = in" & ucaseFirst(propertyName) & vbcrlf
+        file = file & "        " & propertyName & " = in" & ucaseFirst(propertyName) & vbcrlf
         file = file & "    end function" & vbcrlf & vbcrlf
         
         redim preserve toJsonString(a-1)

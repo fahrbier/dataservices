@@ -1,23 +1,37 @@
 class person
-    private name
-    public function getName
-        return name
+    private id
+    public function getId
+        getId=id
+    end function
+    public function setId(inId)
+        id = inId
     end function
 
-    public function setName(inName)
-         name = inName
+    private surname
+    public function getSurname
+        getSurname=surname
+    end function
+    public function setSurname(inSurname)
+        surname = inSurname
     end function
 
-    private vorname
-    public function getVorname
-        return vorname
+    private forename
+    public function getForename
+        getForename=forename
+    end function
+    public function setForename(inForename)
+        forename = inForename
     end function
 
-    public function setVorname(inVorname)
-         vorname = inVorname
+    private age
+    public function getAge
+        getAge=age
+    end function
+    public function setAge(inAge)
+        age = inAge
     end function
 
     public function toJson()
-        toJson = " { ""name"" : """ & name & """ , ""vorname"" : """ & vorname & """ } " 
+        toJson = " { ""id"" : """ & id & """ , ""surname"" : """ & surname & """ , ""forename"" : """ & forename & """ , ""age"" : """ & age & """ } " 
     end function
 end class

@@ -8,6 +8,6 @@ gulp.task('default', function() {
     return gulp.src([
         './data/data*.inc',
         './services/*service.inc',
-    ]).pipe(insert.wrap('<%', '%>')).pipe(concat('/services.inc')).pipe(gulp.dest('./dist/'));
+    ]).pipe(concat('/services.inc')).pipe(insert.wrap('<%', '%>')).pipe(gulp.dest('./dist/'));
 
 });
