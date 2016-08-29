@@ -2,6 +2,7 @@ class LandmarkListService
 
     public meta
     public data()
+    public jsonArray
 
     public default function LandmarkListService(parameter)
         
@@ -19,7 +20,7 @@ class LandmarkListService
         db.setFields(fields)
         
         lmData = db.getData()
- 
+        dim tmpJson()
         for l=0 to ubound(lmData,2)
             set p = new Landmark
             p.setId(lmData(db.mapField("id"),l))
@@ -28,11 +29,15 @@ class LandmarkListService
             p.setLongitude(lmData(db.mapField("longitude"),l))
             
             redim preserve data(l)
-            set data(l) = p
-            set p = nothing
+            redim preserve tmpJson(l)
             
+            set data(l) = p
+            tmpJson(l) = p.toJson()
+            set p = nothing
+        
         next       
         
+        me.jsonArray = "[" & join(tmpJson,",") & "]"
 
 
     end function

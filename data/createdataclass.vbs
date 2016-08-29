@@ -24,7 +24,7 @@ else
         file = file & "    end function" & vbcrlf & vbcrlf
         
         redim preserve toJsonString(a-1)
-        toJsonString(a-1) = " """"" & propertyName & """"" : """""" & " & propertyName & " &" & " """""" " 
+        toJsonString(a-1) = " """"" & propertyName & """"" : """""" & escape(" & propertyName & ") &" & " """""" " 
         
     next
 
@@ -32,6 +32,11 @@ else
     file = file &  "        toJson = "" {" & join(toJsonString,",")  & "} "" " & vbcrlf
     file = file &  "    end function"  & vbcrlf
     
+    file = file &  "    private function escape(inString)" & vbcrlf
+    file = file &  "        if len(inString) > 0 then" & vbcrlf
+    file = file &  "            escape = replace(inString ,"""""""",""\"""""") " & vbcrlf
+    file = file &  "        end if" & vbcrlf
+    file = file &  "    end function" & vbcrlf
     
     file = file &  "end class"
     

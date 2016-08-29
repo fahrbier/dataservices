@@ -15,14 +15,6 @@ class landmark
         name = inName
     end function
 
-    private latitude
-    public function getLatitude
-        getLatitude=latitude
-    end function
-    public function setLatitude(inLatitude)
-        latitude = inLatitude
-    end function
-
     private longitude
     public function getLongitude
         getLongitude=longitude
@@ -31,7 +23,20 @@ class landmark
         longitude = inLongitude
     end function
 
+    private latitude
+    public function getLatitude
+        getLatitude=latitude
+    end function
+    public function setLatitude(inLatitude)
+        latitude = inLatitude
+    end function
+
     public function toJson()
-        toJson = " { ""id"" : """ & id & """ , ""name"" : """ & name & """ , ""latitude"" : """ & latitude & """ , ""longitude"" : """ & longitude & """ } " 
+        toJson = " { ""id"" : """ & escape(id) & """ , ""name"" : """ & escape(name) & """ , ""longitude"" : """ & escape(longitude) & """ , ""latitude"" : """ & escape(latitude) & """ } " 
+    end function
+    private function escape(inString)
+        if len(inString) > 0 then
+            escape = replace(inString ,"""","\""") 
+        end if
     end function
 end class

@@ -6,4 +6,7 @@ ls.LandmarkListService("")
 %>
 <ul>
     <li><%= ls.data(0).getName() %><br/><%= ls.data(0).toJson() %></li>
-    <li><%= ls.data(1).getName() %><br/><%= ls.data(1).toJson() %></li></ul>    
+    <li><%= ls.data(1).getName() %><br/><%= ls.data(1).toJson() %></li>
+</ul>
+
+<%= ls.jsonArray %>    
