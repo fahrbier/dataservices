@@ -35,10 +35,23 @@ class DbService
 
         rs.open sql, cn
         getData = RS.GetRows()
-        dumpResult(getData)
+        ''dumpResult(getData)
         
         c = shutdownConnection()
     end function
+    
+    public function mapField(nameField)
+        if fields.exists(nameField) then
+            fieldArray = fields.keys
+            for mf = 0 to ubound(fieldArray) 
+                if  fieldArray(mf) = nameField then mapField = mf
+            next
+        else
+            mapField = 0
+            me.hasError = true
+            me.errorMessage = me.errorMessage & "<li>Provided field name wasn't requested."
+        end if    
+    end function 
     
     private function dumpResult(rsGetRows)
 

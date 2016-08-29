@@ -14,25 +14,25 @@ class LandmarkListService
          
         fields.add "id",""
         fields.add "name",""
+        fields.add "latitude",""
+        fields.add "longitude",""
         db.setFields(fields)
         
-        db.getData()
-              
+        lmData = db.getData()
+ 
+        for l=0 to ubound(lmData,2)
+            set p = new Landmark
+            p.setId(lmData(db.mapField("id"),l))
+            p.setName(lmData(db.mapField("name"),l))
+            p.setLatitude(lmData(db.mapField("latitude"),l))
+            p.setLongitude(lmData(db.mapField("longitude"),l))
+            
+            redim preserve data(l)
+            set data(l) = p
+            set p = nothing
+            
+        next       
         
-        
-        set p = new Landmark
-        p.setSurname("Lersch")
-        p.setForename("Holger")
-        
-        redim preserve data(0)
-        set me.data(0) = p
-        
-        set p = new Landmark
-        p.setSurname("Schmidt")
-        p.setForename("Erik")
-        
-        redim preserve data(1)
-        set me.data(1) = p
 
 
     end function
