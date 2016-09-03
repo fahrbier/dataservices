@@ -1,37 +1,65 @@
-class person
-    private id
-    public function getId
-        getId=id
-    end function
-    public function setId(inId)
-        id = inId
-    end function
+''+-------------------------------------
+''+- Auto-Generated 2016-9-3
+''+-------------------------------------
 
-    private surname
-    public function getSurname
-        getSurname=surname
-    end function
-    public function setSurname(inSurname)
-        surname = inSurname
-    end function
+class Person
 
-    private forename
-    public function getForename
-        getForename=forename
-    end function
-    public function setForename(inForename)
-        forename = inForename
-    end function
-
-    private age
-    public function getAge
-        getAge=age
-    end function
-    public function setAge(inAge)
-        age = inAge
-    end function
+    ''+-------------------------------------
+    ''+- id, string
+    ''+-------------------------------------
+    private stringId
+    public property Get Id()
+        Id = stringId
+    end property
+    public property Let Id (inId)
+        stringId = inId
+    end property
+    ''+-------------------------------------
+    ''+- forename, string
+    ''+-------------------------------------
+    private stringForename
+    public property Get Forename()
+        Forename = stringForename
+    end property
+    public property Let Forename (inForename)
+        stringForename = inForename
+    end property
+    ''+-------------------------------------
+    ''+- surname, string
+    ''+-------------------------------------
+    private stringSurname
+    public property Get Surname()
+        Surname = stringSurname
+    end property
+    public property Let Surname (inSurname)
+        stringSurname = inSurname
+    end property
+    ''+-------------------------------------
+    ''+- age, integer
+    ''+-------------------------------------
+    private integerAge
+    public property Get Age()
+        Age = integerAge
+    end property
+    public property Let Age (inAge)
+        integerAge = inAge
+    end property
 
     public function toJson()
-        toJson = " { ""id"" : """ & id & """ , ""surname"" : """ & surname & """ , ""forename"" : """ & forename & """ , ""age"" : """ & age & """ } " 
+        toJson = "{" _ 
+                & """id"" : """ & escape(stringId) & """, " _ 
+                & """forename"" : """ & escape(stringForename) & """, " _ 
+                & """surname"" : """ & escape(stringSurname) & """, " _ 
+                & """age"" : """ & escape(integerAge) & """" _ 
+                & "}"
     end function
+    
+    private function escape(inString)
+        if len(inString) > 0 then 
+            escape = replace(inString,"""","\""")
+        else
+            escape = inString
+        end if    
+    end function 
+
 end class

@@ -22,22 +22,22 @@ class LandmarkListService
         lmData = db.getData()
         dim tmpJson()
         for l=0 to ubound(lmData,2)
-            set p = new Landmark
-            p.setId(lmData(db.mapField("id"),l))
-            p.setName(lmData(db.mapField("name"),l))
-            p.setLatitude(lmData(db.mapField("latitude"),l))
-            p.setLongitude(lmData(db.mapField("longitude"),l))
+            set lm = new Landmark
+            lm.Id        = lmData(db.mapField("id"),l)
+            lm.Name      = lmData(db.mapField("name"),l)
+            lm.Latitude  = lmData(db.mapField("latitude"),l)
+            lm.Longitude = lmData(db.mapField("longitude"),l)
             
             redim preserve data(l)
             redim preserve tmpJson(l)
             
-            set data(l) = p
-            tmpJson(l) = p.toJson()
-            set p = nothing
+            set data(l) = lm
+            tmpJson(l) = lm.toJson()
+            set lm = nothing
         
         next       
         
-        me.jsonArray = "[" & join(tmpJson,",") & "]"
+        me.jsonArray = " {""data"" : [" & join(tmpJson,",") & "]}"
 
 
     end function

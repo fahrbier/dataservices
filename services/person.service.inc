@@ -6,8 +6,8 @@ class PersonService
     public default function PersonService(parameter)
         
         set p = new Person
-        p.setSurname("Lersch")
-        p.setForename("Holger")
+        p.Surname = "Lersch"
+        p.Forename = "Holger"
         
         
         set me.data = p
