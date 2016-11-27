@@ -27,7 +27,7 @@ class {{ name }}
     
     private function escape(inString)
         if len(inString) > 0 then 
-            escape = replace(inString,"""","\""")
+            escape = replace(replace(replace(inString,"""","\"""),VBCRLF," "),VBLF," ")
         else
             escape = inString
         end if    

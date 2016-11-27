@@ -58,9 +58,11 @@ gulp.task('writedataclasses', function() {
                              "todaysDate" : dateNow.getFullYear() + '-' + (dateNow.getMonth()+1) + '-' + dateNow.getDate(), 
                              "name" : nameClass, 
                              "properties" : [ 
-                                 {"name": "id",       "ccname": "Id",       "type": "string", "last":false}, 
-                                 {"name": "headline", "ccname": "Headline", "type": "string", "last":false}, 
-                                 {"name": "body",     "ccname": "Body",     "type": "string", "last":true}
+                                 {"name": "id",          "ccname": "Id",          "type": "string", "last":false}, 
+                                 {"name": "dateNews",    "ccname": "DateNews",    "type": "date",   "last":false}, 
+                                 {"name": "headline",    "ccname": "Headline",    "type": "string", "last":false}, 
+                                 {"name": "idSupplier",  "ccname": "IdSupplier",  "type": "string", "last":false},
+                                 {"name": "dateCreated", "ccname": "DateCreated", "type": "date",   "last":true}
                              ]
                          } 
         ))

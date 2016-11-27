@@ -1,5 +1,5 @@
 ''+-------------------------------------
-''+- Auto-Generated 2016-9-3
+''+- Auto-Generated 2016-11-25
 ''+-------------------------------------
 
 class Landmark
@@ -56,7 +56,7 @@ class Landmark
     
     private function escape(inString)
         if len(inString) > 0 then 
-            escape = replace(inString,"""","\""")
+            escape = replace(replace(replace(inString,"""","\"""),VBCRLF," "),VBLF," ")
         else
             escape = inString
         end if    
