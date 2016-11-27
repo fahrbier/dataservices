@@ -5,6 +5,19 @@ class DbService
     private table
     private fields
     
+    private joinTables()
+    private joinExpressions()
+    
+    private countJoinTables 
+    private countJoinExpressions 
+    
+    private filter()
+    private countFilter
+    
+    private sql
+    
+    private countResults
+    
     public hasError
     public errorMessage
     
@@ -16,6 +29,26 @@ class DbService
     public function setTable(inTable)
        table = inTable
     end function
+
+    public function addJoinTable(inTable, inExpression)
+
+       redim preserve joinTables(countJoinTables)
+       joinTables(countJoinTables)           = inTable
+       countJoinTables      = countJoinTables + 1
+       
+       redim preserve joinExpressions(countJoinTables)
+       joinExpressions(countJoinExpressions) = inExpression
+       countJoinExpressions = countJoinExpressions + 1       
+
+    end function    
+    
+    public function addFilter(inField, inFilter)
+       
+       redim preserve filter(countFilter)
+       filter(countFilter) = inField & " " & inFilter
+       countFilter         = countFilter + 1
+
+    end function       
     
     public function setFields(inFields)
         if not IsObject(inFields) then
@@ -25,17 +58,70 @@ class DbService
             set fields = inFields
         end if    
     end function
+    
+    public function getCountResults()
+       getCountResults = countResults
+    end function    
 
     
     public function getData()
         c = getConnection()
         set rs = Server.CreateObject("ADODB.Recordset")
         sqlSelect = join (fields.keys, ",")        
-        sql = "SELECT " & sqlSelect & " FROM " & table
+        
+        
+        sqlWhereJoin = ""
+        sqlFrom      = ""
+        if countJoinTables > 0 then
+            sqlFrom = table
+            sqlWhereJoin = " WHERE "
+            for jc = 0 to countJoinTables -1                     
+                sqlFrom      = sqlFrom & ", " & joinTables(jc)
+                
+                if jc>0 then
+                    sqlWhereJoin = sqlWhereJoin & " AND "
+                end if
+                sqlWhereJoin = sqlWhereJoin & joinExpressions(jc)
+            next    
+        
+        else 
+            sqlFrom = table
+        end if
+        
+        sqlWhereFilter = " "
+        if countFilter > 0 then
+            if countJoinTables = 0 then 
+               sqlWhereFilter = " WHERE "
+            end if
+            
+            for fc = 0 to countFilter -1                     
+                if (fc > 0 or countJoinTables > 0) then
+                    sqlWhereFilter = sqlWhereFilter & " AND "
+                end if
+                sqlWhereFilter = sqlWhereFilter & filter(fc)
+            next              
+        
+        end if
+        
+        sql = "SELECT " & sqlSelect & " FROM " & sqlFrom & sqlWhereJoin & sqlWhereFilter
+        sqlCount = "SELECT count( * ) FROM " & sqlFrom & sqlWhereJoin & sqlWhereFilter
+        
+        ''response.write sql
+        ''response.write "<hr>"
+        ''response.write sqlCount
+        ''response.end
 
-        rs.open sql, cn
-        getData = RS.GetRows()
-        ''dumpResult(getData)
+        rs.open sqlCount, cn
+        countData = rs.GetRows()
+        rs.close
+        countResults = countData(0,0)
+        
+        if countResults > 0 then 
+            rs.open sql, cn
+            getData = rs.GetRows()
+            ''dumpResult(getData)
+            rs.close
+        end if    
         
         c = shutdownConnection()
     end function
